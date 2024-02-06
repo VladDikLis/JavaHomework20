@@ -14,7 +14,7 @@ public class JavaHomework {
         String str = scanner.nextLine();
         try {
             int result = repeat(file, str);
-            System.out.println("Повторений послндовательности:  " + result);
+            System.out.println("Повторений последовательности:  " + result);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
