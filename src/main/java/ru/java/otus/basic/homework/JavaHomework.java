@@ -1,10 +1,7 @@
 package ru.java.otus.basic.homework;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class JavaHomework {
@@ -24,34 +21,33 @@ public class JavaHomework {
     }
 
     private static int repeat(File file, String str) throws FileNotFoundException {
-        int a = 0;
-        StringBuilder stringBuilder = new StringBuilder();
-        int letter = 0;
+        int numberRepeat = 0;
+        StringBuilder currentLine = new StringBuilder();
+        int letterPosition = 0;
         String str2;
-        try (FileReader reader = new FileReader(file)) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             for (int i = 0; i < file.length(); i++) {
-                char c = (char) reader.read();
-                // System.out.println(c);
-                if (c == str.charAt(letter)) {
-                    stringBuilder.append(c);
-                    letter++;
+                char currentLetter = (char) reader.read();
+                if (currentLetter == str.charAt(letterPosition)) {
+                    currentLine.append(currentLetter);
+                    letterPosition++;
                 } else {
-                    letter = 0;
-                    stringBuilder = new StringBuilder();
+                    letterPosition = 0;
+                    currentLine = new StringBuilder();
                 }
-                if (letter > str.length() - 1) {
-                    letter = 0;
+                if (letterPosition > str.length() - 1) {
+                    letterPosition = 0;
                 }
-                str2 = stringBuilder.toString();
+                str2 = currentLine.toString();
                 if (str.equals(str2)) {
-                    a++;
-                    letter = 0;
-                    stringBuilder = new StringBuilder();
+                    numberRepeat++;
+                    letterPosition = 0;
+                    currentLine = new StringBuilder();
                 }
             }
-            return a;
+            return numberRepeat;
         } catch (IOException e) {
-            throw new FileNotFoundException("file not found");
+            throw new FileNotFoundException("Файл не найден");
         }
     }
 }
